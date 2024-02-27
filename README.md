@@ -6,7 +6,9 @@ obligatorio.yml
 tomcat2.yml
 reverse_proxy.yml
 
-obligatorio.yml hace las tareas de actualizacion de los dos servidores Linux (Ubuntu y Rocky) desde el Bastion, ademas de reiniciar los servers en caso los servidores se hayan actualizado. La ultima tarea que hace este playbook es instalar OpenJDK 17 en el servidor Rocky
+obligatorio.yml hace las siguientes tareas:
+* Actualizacion de los dos servidores Linux (Ubuntu y Rocky) y reiniciar los servers en caso los servidores se hayan actualizado
+* Instalacion OpenJDK 17 en el servidor Rocky
 
 tomcat2.yml instala la aplicacion Tomcat 8.5.72, pero hace tareas previas y posteriores:
 * Instala tar y unzip en el server Rocky para descomprimir el archivo que contiene el Tomcat 8.5.72
@@ -22,8 +24,10 @@ reverse_proxy.yml hace las siguientes tareas:
 * Instala el servidor Apache
 * Inicia y registra como servicio Apache
 * Copia un archivo de configuracion a la configuracion de Apache para el reverse proxy
+* Habilitar los módulos de Apache requeridos para la familia Debian
 * Instala el firewall UFW
 * Registra el firewall UFW como servicio
 * Abre el puerto 80 para el apache web server en el firewall
+* Permitir el acceso SSH
 
-Una vez ejecutados los 3 playbooks, las consignas del trabajo estan cumplidas.
+Una vez ejecutados los 3 playbooks, las consignas del trabajo estan cumplidas a cabalidad
