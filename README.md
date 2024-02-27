@@ -2,9 +2,9 @@ Este repositorio sirve para alojar el documento de entrega del trabajo del talle
 
 Tenemos tres playbooks, que se deberian ejecutar en el siguiente orden:
 
-obligatorio.yml
-tomcat2.yml
-reverse_proxy.yml
+1. obligatorio.yml
+2. tomcat2.yml
+3. reverse_proxy.yml
 
 obligatorio.yml hace las siguientes tareas:
 * Actualizacion de los dos servidores Linux (Ubuntu y Rocky) y reiniciar los servers en caso los servidores se hayan actualizado
