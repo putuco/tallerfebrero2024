@@ -26,20 +26,6 @@
       state: latest
     when: ansible_os_family == "RedHat"
 
-  - name: Install apache at Server Ubuntu
-    ansible.builtin.apt:
-      name: apache2
-      state: present
-      update_cache: yes
-    when: ansible_os_family == "Debian"
-
-  - name: Apache service initialized and enabled at Server Ubuntu
-    ansible.builtin.systemd:
-      name: apache2
-      state: started
-      enabled: true
-    when: ansible_os_family == "Debian"    
-
   handlers:
 
   - name: Reboot server

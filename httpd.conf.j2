@@ -1,0 +1,24 @@
+# httpd.conf.j2
+# Load the proxy modules
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+
+# Define server for Tomcat app
+<Proxy "balancer://tomcat_app">
+    BalancerMember "http://{{ hostvars['serverrocky']['ansible_host'] }}:8080"
+</Proxy>
+
+# Define virtual host for reverse proxy
+<VirtualHost *:80>
+    ServerName {{ hostvars['serverubuntu']['ansible_host'] }}
+
+    # Proxy requests to Tomcat app
+    ProxyPass / balancer://tomcat_app/
+    ProxyPassReverse / balancer://tomcat_app/
+
+    # Set some headers to pass the original host, IP, and forwarded IP to the backend server
+    ProxyPreserveHost On
+    RequestHeader set X-Forwarded-Proto "http"
+    RequestHeader set X-Real-IP %{REMOTE_ADDR}s
+    RequestHeader set X-Forwarded-For %{REMOTE_ADDR}s
+</VirtualHost>
