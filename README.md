@@ -19,4 +19,9 @@ tomcat2.yml instala la aplicacion Tomcat 8.5.72, pero hace tareas previas y post
 * Por ultimo, abre el puerto 8080 en el firewall para poder acceder a la aplicacion por la interfase web
 
 reverse_proxy.yml hace las siguientes tareas:
-* 
+* Instala el servidor Apache
+* Inicia y registra como servicio Apache
+* Copia un archivo de configuracion a la configuracion de Apache para el reverse proxy
+* Instala el firewall UFW
+* Registra el firewall UFW como servicio
+* Abre el puerto 80 para el apache web server en el firewall
