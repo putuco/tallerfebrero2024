@@ -9,7 +9,7 @@ reverse_proxy.yml
 obligatorio.yml hace las tareas de actualizacion de los dos servidores Linux (Ubuntu y Rocky) desde el Bastion, ademas de reiniciar los servers en caso los servidores se hayan actualizado. La ultima tarea que hace este playbook es instalar OpenJDK 17 en el servidor Rocky
 
 tomcat2.yml instala la aplicacion Tomcat 8.5.72, pero hace tareas previas y posteriores:
-* instala tar y unzip en el server Rocky para descomprimir el archivo que contiene el Tomcat 8.5.72
+* Instala tar y unzip en el server Rocky para descomprimir el archivo que contiene el Tomcat 8.5.72
 * Crea el usuario y grupo tomcat en el server Rocky
 * Crea el directorio /opt/tomcat en el server Rocky para alojar la aplicacion
 * Descarga y extrae Tomcat 8.5.72
