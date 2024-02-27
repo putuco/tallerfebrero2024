@@ -1,0 +1,80 @@
+---
+- name: Install Tomcat 8 on Rocky Linux
+  hosts: rocky
+  user: ansible
+  become: yes
+  vars:
+    tomcat_version: 8.5.72
+    tomcat_mirror: "https://archive.apache.org/dist/tomcat/tomcat-8/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+  tasks:
+    - name: Install required commands for unarchive
+      dnf:
+        name:
+          - tar
+          - unzip
+        state: present
+    - name: Create tomcat group 
+      group:
+        name: tomcat
+        state: present
+    - name: Create tomcat user      
+      user:
+        name: tomcat
+        group: tomcat
+        shell: /bin/nologin
+        home: /opt/tomcat
+        state: present
+    - name: Create /opt/tomcat directory
+      file:
+        path: /opt/tomcat
+        state: directory
+        owner: tomcat
+        group: tomcat
+        mode: 0755
+    - name: Download and extract Tomcat
+      unarchive:
+        src: "{{ tomcat_mirror }}"
+        dest: /opt/tomcat
+        remote_src: yes
+        owner: tomcat
+        group: tomcat
+    - name: Move files to /opt/tomcat directory
+      shell: "mv /opt/tomcat/apache-tomcat-*/* /opt/tomcat"
+      become_user: tomcat
+    - name: Create systemd unit file for Tomcat
+      copy:
+        content: |
+          [Unit]
+          Description=Tomcat Service
+          Requires=network.target
+          After=network.target
+
+          [Service]
+          Type=forking
+          User=tomcat
+          Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+          Environment="CATALINA_BASE=/opt/tomcat"
+          Environment="CATALINA_HOME=/opt/tomcat"
+          Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+          Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+          ExecStart=/opt/tomcat/bin/startup.sh
+          ExecStop=/opt/tomcat/bin/shutdown.sh
+          Restart=on-abnormal
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/tomcat.service
+    - name: Reload systemd and start and enable Tomcat service
+      systemd:
+        daemon_reload: yes
+        name: tomcat
+        state: started
+        enabled: yes
+    - name: Allow access to Tomcat web interface
+      firewalld:
+        port: 8080/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+
+
