@@ -4,7 +4,7 @@ Tenemos tres playbooks, que se deberian ejecutar en el siguiente orden:
 
 1. obligatorio.yml
 2. tomcat2.yml
-3. reverse_proxy.yml
+3. reverse_proxy2.yml
 
 obligatorio.yml hace las siguientes tareas:
 * Actualizacion de los dos servidores Linux (Ubuntu y Rocky) y reiniciar los servers en caso los servidores se hayan actualizado
@@ -20,7 +20,7 @@ tomcat2.yml instala la aplicacion Tomcat 8.5.72, pero hace tareas previas y post
 * Recarga systemd para registrar como servicio a Tomcat e iniciarlo
 * Por ultimo, abre el puerto 8080 en el firewall para poder acceder a la aplicacion por la interfase web
 
-reverse_proxy.yml hace las siguientes tareas:
+reverse_proxy2.yml hace las siguientes tareas:
 * Instala el servidor Apache
 * Inicia y registra como servicio Apache
 * Copia un archivo de configuracion a la configuracion de Apache para el reverse proxy
