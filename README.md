@@ -25,3 +25,5 @@ reverse_proxy.yml hace las siguientes tareas:
 * Instala el firewall UFW
 * Registra el firewall UFW como servicio
 * Abre el puerto 80 para el apache web server en el firewall
+
+Una vez ejecutados los 3 playbooks, las consignas del trabajo estan cumplidas.
