@@ -86,9 +86,8 @@
   notify: Restart tomcat
 
 handlers:
-  systemd:
-        daemon_reload: yes
-        name: tomcat
-        state: started
-        enabled: yes
-
+  name: Restart tomcat
+  service:
+    name: tomcat
+    state: started
+    enabled: yes
