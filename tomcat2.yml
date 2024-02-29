@@ -76,18 +76,18 @@
         state: enabled
         immediate: yes
         
-- name: Copy file with owner and permissions
-  ansible.builtin.copy:
-    src: /home/sysadmin/tallerfebrero2024/sample.war
-    dest: /opt/tomcat/webapps
-    owner: ansible
-    group: ansible
-    mode: '0644'
-  notify: Restart tomcat
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: /home/sysadmin/tallerfebrero2024/sample.war
+        dest: /opt/tomcat/webapps
+        owner: ansible
+        group: ansible
+        mode: '0644'
+      notify: Restart tomcat
 
-handlers:
-  - name: Restart tomcat
-    service:
-      name: tomcat
-      state: started
-      enabled: yes
+  handlers:
+    - name: Restart tomcat
+      service:
+        name: tomcat
+        state: started
+        enabled: yes
