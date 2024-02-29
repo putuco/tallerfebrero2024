@@ -86,7 +86,7 @@
   notify: Restart tomcat
 
 handlers:
-- name: Restart tomcat
+  - name: Restart tomcat
     service:
       name: tomcat
       state: started
